@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento de películas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="mt-3 mb-3">
+        <h3>Agregar película</h3>
+    </div>
+
+    <form th:action="@{/maintenance/createFilm}" method="post">
+        <!-- Título de la película -->
+        <div class="mb-3 row">
+            <label for="title" class="col-sm-3">Título</label>
+            <div class="col-sm-9">
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Descripción de la película -->
+        <div class="mb-3 row">
+            <label for="description" class="col-sm-3">Descripción</label>
+            <div class="col-sm-9">
+                <input type="text" id="description" name="description" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Año de estreno -->
+        <div class="mb-3 row">
+            <label for="releaseYear" class="col-sm-3">Año de filmación</label>
+            <div class="col-sm-9">
+                <input type="number" id="releaseYear" name="releaseYear" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- ID del idioma original -->
+        <div class="mb-3 row">
+            <label for="languageId" class="col-sm-3">ID del idioma original</label>
+            <div class="col-sm-9">
+                <select id="languageId" name="languageId" class="form-control" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option
+                            th:each="language : ${languages}"
+                            th:value="${language.languageId}"
+                            th:text="${language.name}"
+                    ></option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Duración de alquiler -->
+        <div class="mb-3 row">
+            <label for="rentalDuration" class="col-sm-3">Tiempo de alquiler (Días)</label>
+            <div class="col-sm-9">
+                <input type="number" id="rentalDuration" name="rentalDuration" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Tasa de alquiler -->
+        <div class="mb-3 row">
+            <label for="rentalRate" class="col-sm-3">Precio de alquiler (USD)</label>
+            <div class="col-sm-9">
+                <input type="number" step="0.01" id="rentalRate" name="rentalRate" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Longitud de la película -->
+        <div class="mb-3 row">
+            <label for="length" class="col-sm-3">Duración de la película (Minutos)</label>
+            <div class="col-sm-9">
+                <input type="number" id="length" name="length" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Costo de reemplazo -->
+        <div class="mb-3 row">
+            <label for="replacementCost" class="col-sm-3">Costo de reemplazo (USD)</label>
+            <div class="col-sm-9">
+                <input type="number" step="0.01" id="replacementCost" name="replacementCost" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Características especiales -->
+        <div class="mb-3 row">
+            <label for="specialFeatures" class="col-sm-3">Características de la película</label>
+            <div class="col-sm-9">
+                <input type="text" id="specialFeatures" name="specialFeatures" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Categoría -->
+        <div class="mb-3 row">
+            <label for="rating" class="col-sm-3">Categoría</label>
+            <div class="col-sm-9">
+                <select id="rating" name="rating" class="form-control" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="G">G</option>
+                    <option value="PG">PG</option>
+                    <option value="PG-13">PG-13</option>
+                    <option value="R">R</option>
+                    <option value="NC-17">NC-17</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="mb-3 row">
+            <label for="btnCreate" class="col-sm-3"></label>
+            <div class="col-sm-9">
+                <button type="submit" id="btnCreate" class="btn btn-success w-25" onclick="return confirmCreate()">
+                    Agregar
+                </button>
+                <button type="button" id="btnCancel" class="btn btn-danger w-25"
+                        onclick="location.href='/maintenance/start'">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    function confirmCreate() {
+        return confirm("¿Estás seguro de que deseas agregar la película?");
+    }
+</script>
+</body>
+</html>
